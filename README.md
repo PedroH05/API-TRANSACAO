@@ -1,24 +1,37 @@
 # API de Transações e Estatísticas
 
-Esta API realiza o gerenciamento de transações e calcula estatísticas em tempo real (últimos 60 segundos).
+API desenvolvida em Spring Boot para o gerenciamento de transações financeiras e cálculo de estatísticas em tempo real (últimos 60 segundos).
 
-## 🚀 Tecnologias
-* Java / Spring Boot
-* Maven
-* OpenAPI / Swagger
+## Tecnologias e Dependências
 
-## 🛠️ Testes Realizados (Evidências)
+As principais ferramentas utilizadas no desenvolvimento foram:
 
-### 1. Criar Transação (Sucesso)
-Retorna `201 Created` quando os dados são válidos.
+* **Java 17** e **Spring Boot 3**
+* **Spring Web**: Construção dos endpoints REST.
+* **Spring Validation**: Validação de campos obrigatórios, valores positivos e datas.
+* **Lombok**: Redução de código boilerplate (getters, setters e construtores).
+* **Springdoc OpenAPI (Swagger)**: Documentação interativa da API.
+* **Maven**: Gerenciamento de dependências.
 
-### 2. Validação de Dados
-* **Valor Negativo:** Retorna `422 Unprocessable Entity`.
+## Funcionalidades e Evidências
 
-* **Transação Atrasada (>60s):** Retorna `400 Bad Request`.
+### 1. Criar Transação
+O endpoint `POST /transacao` recebe o valor e a data/hora. Quando os dados são válidos, retorna `201 Created`.
 
-### 3. Estatísticas
-Cálculo automático de `count`, `sum`, `avg`, `min` e `max`.
+### 2. Validações de Regra de Negócio
+A API valida se os dados estão corretos conforme os requisitos:
+* **Valor Negativo ou Inválido:** Retorna `422 Unprocessable Entity`.
+* 
+* **Data Antiga (> 60 segundos):** Retorna `400 Bad Request`.
 
-### 4. Limpar Dados
-Remoção de todas as transações da memória.
+### 3. Estatísticas em Tempo Real
+O endpoint `GET /estatistica` calcula a soma, média, valor mínimo, valor máximo e quantidade das transações dos últimos 60 segundos.
+
+### 4. Limpeza de Dados
+O endpoint `DELETE /transacao` limpa todas as transações da memória.
+
+### 5. Documentação
+A documentação completa pode ser acessada via Swagger UI.
+
+---
+Desenvolvido como projeto de estudo para APIs REST com Spring Boot.
